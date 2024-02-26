@@ -3,10 +3,20 @@ from uuid import uuid4
 from datetime import datetime
 
 class BaseModel:
-    def __init__(self):
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+    def __init__(self, *args, **kwargs):
+        if len(kwargs) != 0:
+            for k in kwargs.keys():
+                if k == "created_at" or k == "updated_at":
+                    t = datetime.strptime(kwargs[k], '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, k, t)
+                elif k == "__class__":
+                    continue
+                else:
+                    setattr(self, k, kwargs[k])
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         cn = self.__class__.__name__
@@ -19,7 +29,7 @@ class BaseModel:
         new_dict = {}
         new_dict["__class__"] = self.__class__.__name__
         for k in self.__dict__.keys():
-            if k == "created_at" or k == "updated_at":
+            if isinstance(self.__dict__[k], datetime):
                 t = self.__dict__[k].isoformat()
                 new_dict[k] = t
             else:

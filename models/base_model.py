@@ -21,7 +21,7 @@ class BaseModel:
         for k in self.__dict__.keys():
             if k == "created_at" or k == "updated_at":
                 t = self.__dict__[k].isoformat()
-                new_dict[k] = self.__dict__[k]
+                new_dict[k] = t
             else:
                 new_dict[k] = self.__dict__[k]
         return new_dict

@@ -1,7 +1,13 @@
 #!/usr/bin/python3
+"""
+Our cmd Module
+"""
 import cmd
 
 class HBNBCommand(cmd.Cmd):
+    """
+    Our Command Class
+    """
     prompt = "(hbnb) "
 
     def do_EOF(self, arg):

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-My BaseModel Module
+Our BaseModel Module
 '''
 from uuid import uuid4
 from datetime import datetime
@@ -9,7 +9,7 @@ import models
 
 class BaseModel:
     '''
-    My BaseModel
+    Our BaseModel
     '''
     def __init__(self, *args, **kwargs):
         if len(kwargs) != 0:

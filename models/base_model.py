@@ -1,8 +1,16 @@
 #!/usr/bin/python3
+'''
+My BaseModel Module
+'''
 from uuid import uuid4
 from datetime import datetime
+from models import storage
+
 
 class BaseModel:
+    '''
+    My BaseModel
+    '''
     def __init__(self, *args, **kwargs):
         if len(kwargs) != 0:
             for k in kwargs.keys():
@@ -17,6 +25,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         cn = self.__class__.__name__
@@ -24,6 +33,7 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         new_dict = {}

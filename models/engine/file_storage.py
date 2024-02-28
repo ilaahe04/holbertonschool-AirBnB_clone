@@ -15,6 +15,10 @@ class FileStorage:
              "State": State, "City": City, "Amenity": Amenity, "Place": Place}
     __objects = {}
 
+    @property
+    def file_path(self):
+        return self.__file_path
+
     def all(self):
         return FileStorage.__objects
 

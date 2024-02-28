@@ -27,6 +27,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(obj1, all_objs.values())
         self.assertIn(obj2, all_objs.values())
 
+    def test_check_type(self):
+        file_path = storage.file_path
+        objects = storage.all()
+
+        self.assertIsInstance(file_path, str)
+        self.assertIsInstance(objects, dict)
     def test_storage_new(self):
         obj1 = BaseModel()
         storage.new(obj1)

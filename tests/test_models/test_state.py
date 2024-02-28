@@ -18,5 +18,4 @@ class TestState(unittest.TestCase):
 
     def test_name(self):
         myModel = State()
-        myModel.name = "Baku"
-        self.assertEqual(myModel.name, "Baku")
+        self.assertEqual(myModel.name, "")

@@ -12,7 +12,7 @@ from models.review import Review
 class FileStorage:
     __file_path = "file.json"
     __cls = {"BaseModel": BaseModel, "User": User, "Review": Review,
-            "State": State, "City": City, "Amenity": Amenity, "Place": Place}
+             "State": State, "City": City, "Amenity": Amenity, "Place": Place}
     __objects = {}
 
     def all(self):

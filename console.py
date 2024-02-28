@@ -19,9 +19,10 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     classes = {"BaseModel": BaseModel, "User": User, "Review": Review,
-            "State": State, "City": City, "Amenity": Amenity, "Place": Place}
+               "State": State, "City": City,
+               "Amenity": Amenity, "Place": Place}
     instances = storage.all()
-    
+
     @staticmethod
     def isfloat(string):
         try:

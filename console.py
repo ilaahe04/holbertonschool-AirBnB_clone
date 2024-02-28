@@ -4,6 +4,7 @@ Our cmd Module
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models.__init__ import storage
 
 
@@ -12,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
     Our Command Class
     """
     prompt = "(hbnb) "
-    classes = {"BaseModel": BaseModel}
+    classes = {"BaseModel": BaseModel, "User": User}
     instances = storage.all()
     
     @staticmethod
@@ -22,6 +23,7 @@ class HBNBCommand(cmd.Cmd):
             return True
         except ValueError:
             return False
+
     @staticmethod
     def validity(arg="", check_count=1):
         args = arg.split()

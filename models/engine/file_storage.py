@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
     __file_path = "file.json"
+    __cls = {"BaseModel": BaseModel, "User": User}
     __objects = {}
 
     def all(self):
@@ -27,6 +29,7 @@ class FileStorage:
                 string = f.read()
                 objs = json.loads(string)
                 for i in objs.keys():
-                    FileStorage.__objects[i] = BaseModel(**objs[i])
+                    cn = i.split(".")[0]
+                    FileStorage.__objects[i] = FileStorage.__cls[cn](**objs[i])
         except FileNotFoundError:
             pass

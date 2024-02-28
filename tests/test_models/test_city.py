@@ -18,10 +18,8 @@ class TestCity(unittest.TestCase):
 
     def test_name(self):
         myModel = City()
-        myModel.name = "Baku"
-        self.assertEqual(myModel.name, "Baku")
+        self.assertEqual(myModel.name, "")
 
     def test_state_id(self):
         myModel = City()
-        myModel.state_id = "164"
-        self.assertEqual(myModel.state_id, "164")
+        self.assertEqual(myModel.state_id, "")

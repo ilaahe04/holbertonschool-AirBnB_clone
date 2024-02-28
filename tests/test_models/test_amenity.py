@@ -18,5 +18,4 @@ class TestAmenity(unittest.TestCase):
 
     def test_name(self):
         myModel = Amenity()
-        myModel.name = "Test"
-        self.assertEqual(myModel.name, "Test")
+        self.assertEqual(myModel.name, "")

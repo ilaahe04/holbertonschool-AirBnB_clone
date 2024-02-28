@@ -2,11 +2,17 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
     __file_path = "file.json"
-    __cls = {"BaseModel": BaseModel, "User": User}
+    __cls = {"BaseModel": BaseModel, "User": User, "Review": Review,
+            "State": State, "City": City, "Amenity": Amenity, "Place": Place}
     __objects = {}
 
     def all(self):

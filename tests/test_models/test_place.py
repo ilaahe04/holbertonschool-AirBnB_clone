@@ -14,7 +14,7 @@ class TestPlace(unittest.TestCase):
         except IOError:
             pass
 
-        storage.__objects = {}
+        storage.objects = {}
 
     def test_city_id(self):
         myModel = Place()

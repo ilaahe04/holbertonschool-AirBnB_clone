@@ -5,6 +5,7 @@ import unittest
 
 from models import storage
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -14,7 +15,19 @@ class TestFileStorage(unittest.TestCase):
         except IOError:
             pass
 
-        storage.__objects = {}
+        storage.objects = {}
+
+    def test_reload(self):
+        obj1 = BaseModel()
+        obj2 = BaseModel()
+        obj3 = BaseModel()
+        storage.save()
+
+        storage2 = FileStorage()
+        storage2.reload()
+        objs = storage2.objects
+
+        self.assertEqual(len(objs), 3)
 
     def test_storage_all(self):
         obj1 = BaseModel()
@@ -33,6 +46,7 @@ class TestFileStorage(unittest.TestCase):
 
         self.assertIsInstance(file_path, str)
         self.assertIsInstance(objects, dict)
+
     def test_storage_new(self):
         obj1 = BaseModel()
         storage.new(obj1)

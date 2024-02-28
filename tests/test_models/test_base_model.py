@@ -14,7 +14,7 @@ class TestBaseModel(unittest.TestCase):
         except IOError:
             pass
 
-        storage.__objects = {}
+        storage.objects = {}
 
     def test_id_generation(self):
         myModel = BaseModel()

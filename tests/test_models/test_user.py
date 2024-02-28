@@ -14,7 +14,7 @@ class TestUser(unittest.TestCase):
         except IOError:
             pass
 
-        storage.__objects = {}
+        storage.objects = {}
 
     def test_check_type(self):
         self.assertIsInstance(User.email, str)

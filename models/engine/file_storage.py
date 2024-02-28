@@ -18,9 +18,14 @@ class FileStorage:
     @property
     def file_path(self):
         return self.__file_path
+
     @property
     def objects(self):
         return self.__objects
+
+    @objects.setter
+    def objects(self, value):
+        FileStorage.__objects = value
     def all(self):
         return FileStorage.__objects
 

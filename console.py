@@ -74,6 +74,7 @@ class HBNBCommand(cmd.Cmd):
             print(HBNBCommand.instances[key])
 
     def do_destroy(self, arg):
+        '''Destroys an instance of a class\nUsage: destroy <class_name> <id>'''
         args = arg.split()
         if HBNBCommand.validity(arg, 2):
             key = args[0] + '.' + args[1]
@@ -95,6 +96,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg=""):
+        '''Updates attributes of an instance
+Usage: update <class name> <id> <attribute name> "<attribute value>"'''
         args = arg.split()
         if HBNBCommand.validity(arg, 3):
             key = args[0] + "." + args[1]

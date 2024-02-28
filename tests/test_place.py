@@ -47,7 +47,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(myModel.number_bathrooms, 1)
 
     def test_max_guest(self):
-        myModel= Place()
+        myModel = Place()
         myModel.max_guest = 5
         self.assertEqual(myModel.max_guest, 5)
 

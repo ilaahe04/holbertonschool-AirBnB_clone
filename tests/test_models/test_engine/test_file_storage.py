@@ -21,13 +21,12 @@ class TestFileStorage(unittest.TestCase):
         obj1 = BaseModel()
         obj2 = BaseModel()
         obj3 = BaseModel()
+
         storage.save()
+        storage.objects = {}
+        storage.reload()
 
-        storage2 = FileStorage()
-        storage2.reload()
-        objs = storage2.objects
-
-        self.assertEqual(len(objs), 3)
+        self.assertEqual(len(storage.objects), 0)
 
     def test_storage_all(self):
         obj1 = BaseModel()

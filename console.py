@@ -21,7 +21,6 @@ class HBNBCommand(cmd.Cmd):
     classes = {"BaseModel": BaseModel, "User": User, "Review": Review,
                "State": State, "City": City,
                "Amenity": Amenity, "Place": Place}
-    instances = storage.all()
 
     @staticmethod
     def isfloat(string):
@@ -47,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             if len(args) < 2:
                 print("** instance id missing **")
                 return False
-            if args[0] + '.' + args[1] not in HBNBCommand.instances.keys():
+            if args[0] + '.' + args[1] not in storage.all().keys():
                 print("** no instance found **")
                 return False
         if check_count == 3:
@@ -71,26 +70,26 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if HBNBCommand.validity(arg, 2):
             key = args[0] + '.' + args[1]
-            print(HBNBCommand.instances[key])
+            print(storage.all()[key])
 
     def do_destroy(self, arg):
         '''Destroys an instance of a class\nUsage: destroy <class_name> <id>'''
         args = arg.split()
         if HBNBCommand.validity(arg, 2):
             key = args[0] + '.' + args[1]
-            del HBNBCommand.instances[key]
+            del storage.all()[key]
             storage.save()
 
     def do_all(self, arg=""):
         '''Shows every instance'''
         if arg == "":
-            all_list = map(lambda x: str(x), HBNBCommand.instances.values())
+            all_list = map(lambda x: str(x), storage.all().values())
             print(list(all_list))
         elif arg in HBNBCommand.classes.keys():
             all_list = []
-            for key in HBNBCommand.instances.keys():
+            for key in storage.all().keys():
                 if arg in key:
-                    all_list.append(str(HBNBCommand.instances[key]))
+                    all_list.append(str(storage.all()[key]))
             print(all_list)
         else:
             print("** class doesn't exist **")
@@ -107,7 +106,33 @@ Usage: update <class name> <id> <attribute name> "<attribute value>"'''
                 val = float(args[3])
             else:
                 val = args[3][1:-1]
-            setattr(HBNBCommand.instances[key], args[2], val)
+            setattr(storage.all()[key], args[2], val)
+
+    def do_count(self, arg):
+        '''Counts instances of a class\nUsage: count <class_name>'''
+        if HBNBCommand.validity(arg, 1):
+            count = 0
+            for key in storage.all().keys():
+                if arg in key:
+                    count += 1
+            print(count)
+
+    def default(self, line):
+        args = line.split(".")
+        commands = {"create": self.do_create, "all": self.do_all,
+                    "show": self.do_show, "destroy": self.do_destroy,
+                    "update": self.do_update, "count": self.do_count}
+        command_attrs = args[1].split("(")
+        command = command_attrs[0]
+        if command in commands.keys():
+            cn = args[0]
+            attrs = command_attrs[1][1:-2]
+            if attrs == "":
+                commands[command](f"{cn}")
+            else:
+                commands[command](f"{cn} {attrs}")
+        else:
+            super().default(line)
 
     def do_EOF(self, arg):
         'EOF to exit the program'

@@ -3,6 +3,7 @@
 Our cmd Module
 """
 import cmd
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -105,7 +106,7 @@ Usage: update <class name> <id> <attribute name> "<attribute value>"'''
             elif HBNBCommand.isfloat(args[3]):
                 val = float(args[3])
             else:
-                val = args[3][1:-1]
+                val = args[3].strip("\"")
             setattr(storage.all()[key], args[2], val)
 
     def do_count(self, arg):
@@ -124,9 +125,10 @@ Usage: update <class name> <id> <attribute name> "<attribute value>"'''
                     "update": self.do_update, "count": self.do_count}
         command_attrs = args[1].split("(")
         command = command_attrs[0]
+        print(command)
         if command in commands.keys():
             cn = args[0]
-            attrs = command_attrs[1][1:-2]
+            attrs = re.sub("[),\"]", "", command_attrs[1])
             if attrs == "":
                 commands[command](f"{cn}")
             else:
